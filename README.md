@@ -24,6 +24,8 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 
 ### For Android
 
+ <b> npx react-native run-android
+
 ```bash
 # using npm
 npm run android
