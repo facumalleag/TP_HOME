@@ -1,33 +1,34 @@
-import { StyleSheet } from "react-native";
-export const colors={
-    primary:'#5856D6',
-    secondary:'#FF6c00'
-}
+import { StyleSheet } from 'react-native';
+
 
 export const styles = StyleSheet.create({
-    globalMargin: {
-        marginHorizontal: 20
-    },
-    title: {
-        fontSize: 30,
-        marginBottom: 10
-
-    },
-    botonGrande: {
-        width: 100,
-        height: 100,
-        backgroundColor: 'red',
-        borderRadius: 20,
-        alignItems: 'center',
-        justifyContent: "center",
-        marginRight:10
-    },
-    botongrandeTexto: {
-        color:'white',
-        fontSize:18,
-        fontWeight:"bold"
-
-    }
-    
+  root: {
+    flex:1,
+    backgroundColor: '#E5EDDA',
+    justifyContent:'space-between',
+    //flexDirection:'column'
+  },
+  myHome: {
+    color: '#B4CC1E',
+    fontFamily: 'Fraunces',
+    fontSize: 32,
+    lineHeight: 100,
+  },
+  area_duenios: {
+    width: 104,
+    height: 47,
+    backgroundColor: '#1F4068',
+    borderRadius: 60,
+  },
+  google_login: {
+    color: '#B4CC1E',
+    width: 390,
+    //justifyContent:'center',
+    //flexDirection:'column'
+  },
+  letra_btn_duenios: {
+    color: 'white',
+    alignSelf:'center'
+  }
 
 });
