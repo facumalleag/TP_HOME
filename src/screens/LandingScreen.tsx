@@ -1,8 +1,6 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text, Image } from 'react-native';
 import { styles } from '../theme/appTheme';
-import { LoginScreen } from './LoginScreen';
-import { useEffect } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 
 
