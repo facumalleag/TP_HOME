@@ -1,21 +1,13 @@
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
+import '@react-navigation/bottom-tabs'
 import React, { useState } from 'react'
-import { styles } from '../theme/appTheme';
-import { Text } from 'react-native-paper';
-import { Platform, ScrollView, TextInput, View } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Image } from 'react-native';
-import { ThemeProvider } from '@react-navigation/native';
-import { KeyboardAvoidingView } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TabHomeDueniosScreen } from './TabHomeDueniosScreen';
+import { TabProfileDueniosScreen } from './TabProfileDueniosScreen';
 
+const Tab = createBottomTabNavigator();
 
-const imagen_logo = 'https://s3-alpha-sig.figma.com/img/56a7/88d7/dc8cddbcd3f59dd1009c5ca4be9c6e26?Expires=1698624000&Signature=idOu0jGqZSLuV6jlftjkc-QzRh39W7~RfF5g9xBKZiw3r4Jeo0EtD~G0VajA0wb3b7HKpjChnocNeptkKVBPIagTDYhn9zFd0mZelSIlPN7GmFS9vKXsH0D5pyRcZVONCYuUKwVijJr~IRZrvXyWFQJpQqkgS5s7suuqVc5KzVctf~-bIS~mYs3UKBx4WJFbDy~-DdbG9tFYy0yErCp4nXTI1gdxyTBMZuOt~eJuVydaWv1czgzzwaIWzigirDOy0XVfN-BaAApQ2uxfl0EnqLfR1IK2V~qn8g-pNTT3i7dZghPceYxe6hoA3Bn3-Accq-PyEXMi6E6EklHgnRDTnw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-
-interface Props extends StackScreenProps<any, any> { }
-
-
-
-export const HomePageDueniosScreen = ({ navigation }: Props) => {
+export const HomePageDueniosScreen = () => {
 
   const [form, setForm] = useState({
     email: '',
@@ -31,20 +23,42 @@ export const HomePageDueniosScreen = ({ navigation }: Props) => {
 
   return (
 
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: '#E5EDDA',
+      }}
+
+      screenOptions={() => ({
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: '#1F4068',
+          borderRadius: 10,
+        },
+        headerShown: false,
+        labeled: false,
+        tabBarLabelStyle: {
+          fontSize: 15,
+        },
+      })
+      }
     >
-      <ScrollView>
-        <View >
-          <Image source={{ uri: imagen_logo }} style={{ width: 150, height: 100, alignSelf: 'center' }} />
-          <Text style={{
-            ...styles.myHome,
-            alignSelf: 'center',
-          }} >
-            MyHome
-          </Text>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      <Tab.Screen name="TabHomeDueniosScreen" component={TabHomeDueniosScreen} options={{   
+        tabBarIcon:({focused})=>{
+          return   <Icon name='home-outline' size={25} color={
+            focused? "#B5CC2B" : "#EAEAEA"
+          }/>
+        }
+      }}
+      />
+      <Tab.Screen name="TabProfileDueniosScreen" component={TabProfileDueniosScreen} options={{
+        tabBarIcon:({focused})=>{
+          return   <Icon name='person-outline' size={25} color={
+            focused? "#B5CC2B" : "#EAEAEA"
+          }/>
+        }
+      }}/>
+       
+    </Tab.Navigator>
+    
   );
 }
