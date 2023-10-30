@@ -19,11 +19,17 @@ export const LandingScreen = ({ navigation }: Props) => {
       <TouchableOpacity
         onPress={() => navigation.navigate('LoginGeneralScreen')}
       >
-        <Image source={{ uri: imagen_logo}} style={{ width: 300, height: 200, alignSelf:'center' }} /* contentFit="cover" */ />
+        <Image source={{ uri: imagen_logo}} style={{ width: 300, height: 200, alignSelf:'center'}} /* contentFit="cover" */ />
         <Text style={{...styles.myHome, alignSelf:'center'}}>
           MyHome
         </Text>
-        <Image source={{ uri: imagen_bienvenida }} style={{ width: 300, height: 420,alignSelf:'center' }} /* contentFit="cover" */ />
+        <Image source={{ uri: imagen_bienvenida }} 
+        style={{ 
+          width: 400, height: 420,alignSelf:'center',
+          bottom:-20,
+        borderTopRightRadius: 1000,
+        borderTopLeftRadius: 1000,
+           }} /* contentFit="cover" */ />
       </TouchableOpacity>
     </View>
   );

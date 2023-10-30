@@ -3,8 +3,8 @@ import '@react-navigation/bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { Tab1Screen } from '../screens/Tab1Screen';
-import { Tab3Screen } from '../screens/Tab3Screen';
-import { Tab2Screen } from '../screens/Tab2Screen';
+import { Tab3Screen } from '../screens/TabProfileDueniosScreen';
+import { Tab2Screen } from '../screens/TabHomeDueniosScreen';
 import { colors } from '../theme/appTheme';
 import { Text } from "react-native"
 import { TopTapNavigator } from './TopTabNavigator';
