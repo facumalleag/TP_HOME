@@ -1,6 +1,5 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Image } from 'react-native';
 import { View } from 'react-native'
 import { RootStackParams } from '../navigator/StackNavigator'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -25,12 +24,11 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
     return (
 
         <View
-        style={{
-            flex:1
-        }}>
-            <View>
-                <TouchableOpacity
-                    onPress={() => navigation.pop()}
+            style={{
+                flex: 1
+            }}>
+            <TouchableOpacity
+                    onPress={navigation.goBack}
                     activeOpacity={0.8}
                     style={{
                         ...styles.backButton,
@@ -43,6 +41,9 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
                         size={30}
                     />
                 </TouchableOpacity>
+            <View style={{
+                flex: 1
+            }}>
 
                 <FadeInImage
                     //source={{uri: item.picture}}
@@ -52,7 +53,7 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
                     }}
                 />
 
-                 <Image
+                {/*  <Image
                     source={require('../images/depto.png')}
                     style={{
                         height: 400,
@@ -61,7 +62,7 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
                          top:-345,
                          opacity:0.5
                     }}
-                /> 
+                />  */}
 
                 {/* <Text
                     style={{
@@ -70,20 +71,21 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
 
                     }}>{picture}</Text> */}
             </View>
-
             {/* ///Detalles y loading    {name + '\n'}#*/}
 
             {isLoading ?
                 <View
-                style={styles.loadingStyle}>
+                    style={styles.loadingStyle}>
                     <ActivityIndicator
                         color='#099A97'
                         size={30}
                     />
                 </View>
-                : 
-                <PropiedadBottomDetail propiedad={propiedad}/>
+                :
+                <PropiedadBottomDetail propiedad={propiedad} />
+                
             }
+            
         </View>
     )
 }
@@ -103,10 +105,9 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         left: 20,
     },
-    loadingStyle:{
-        flex:1,
-        height:200,
-        justifyContent:'center',
-
+    loadingStyle: {
+        flex: 1,
+        height: 200,
+        justifyContent: 'center',
     }
 })

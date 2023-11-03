@@ -125,8 +125,11 @@ export const TabHomeDueniosScreen = () => {
           Vendidos
         </Text>
       </TouchableOpacity>
+      
     </View>
+    
     <PropiedadFirstView/>
+
     </View>
   )
 }

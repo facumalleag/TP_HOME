@@ -10,9 +10,10 @@ import { RegistroUsuarioScreen } from '../screens/RegistroUsuarioScreen';
 import { ModalScreen } from '../Modal/ModalScreen';
 import { PropiedadDetails } from '../screens/PropiedadDetails';
 import { PropiedadSimple } from '../interfaces/propiedadInterfaces';
+import { ComentariosParaDuenios } from '../screens/ComentariosParaDuenios';
 
 export type RootStackParams = {
-  LandingScreen: undefined,
+  /* LandingScreen: undefined, */
   LoginScreen: undefined,
   LoginGeneralScreen: undefined,
   RecuperoPwdScreen: undefined,
@@ -21,6 +22,7 @@ export type RootStackParams = {
   ModalScreen:undefined,
   RegisterModal: undefined,
   PropiedadDetails:PropiedadSimple,
+  ComentariosParaDuenios:undefined,
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -40,14 +42,15 @@ export const  StackNaviagtor=() =>{
         }
       }}
     >
-      <Stack.Screen name="LandingScreen"  component={LandingScreen} />
+     {/*  <Stack.Screen name="LandingScreen"  component={LandingScreen} /> */}
+     <Stack.Screen name="LoginGeneralScreen"  component={LoginGeneralScreen} />
       <Stack.Screen name="LoginScreen"  component={LoginScreen} />
-      <Stack.Screen name="LoginGeneralScreen"  component={LoginGeneralScreen} />
       <Stack.Screen name="RecuperoPwdScreen" component={RecuperoPwdScreen} /> 
       <Stack.Screen name="HomePageDueniosScreen"  component={HomePageDueniosScreen} />
       <Stack.Screen name="RegistroUsuarioScreen"  component={RegistroUsuarioScreen} />
       <Stack.Screen name="ModalScreen" component={ModalScreen}/>
       <Stack.Screen name="PropiedadDetails" component={PropiedadDetails}/>
+      <Stack.Screen name="ComentariosParaDuenios" component={ComentariosParaDuenios}/>
     </Stack.Navigator>
   );
 }

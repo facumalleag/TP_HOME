@@ -2,6 +2,7 @@ import React from 'react'
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { PropiedadFullDesc, Type } from '../interfaces/propiedadInterfaces';
 import { FadeInImage } from './FadeInImage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 interface Props {
@@ -16,6 +17,7 @@ export const PropiedadBottomDetail = ({ propiedad }: Props) => {
             style={{
                 ...StyleSheet.absoluteFillObject,
             }}>
+                
 
             {/* Types */}
             <View
@@ -67,8 +69,6 @@ export const PropiedadBottomDetail = ({ propiedad }: Props) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
             >
-                
-
                 <FadeInImage
                     uri={propiedad.sprites.back_default}
                     style={stylesDet.basicSprite}
