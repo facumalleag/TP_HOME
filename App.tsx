@@ -1,19 +1,22 @@
-import { NavigationContainer } from '@react-navigation/native';
-
-import React, { useEffect, useState } from "react"
-import { AuthProvider } from "./src/context/AuthContext"
+import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { StackNaviagtor } from './src/navigator/StackNavigator';
-import { HomePageDueniosScreen } from './src/screens/HomePageDueniosScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { AuthProvider } from './src/context/AuthContext';
 
 const App = () => {
-  
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
-    <NavigationContainer >
+    <NavigationContainer>
       <AppState>
-        <StackNaviagtor/>
+          <StackNaviagtor />
       </AppState>
     </NavigationContainer>
-  )
+  );
 }
 
 const AppState = ({ children }: any) => {

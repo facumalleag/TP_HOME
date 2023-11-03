@@ -63,6 +63,7 @@ export const PropiedadFirstView = () => {
                             color='#099A97'/>
                     }
                 />
+
             </View>
         </>
     )

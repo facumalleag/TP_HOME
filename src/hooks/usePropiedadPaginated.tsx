@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect,useRef,useState } from 'react';
 import { propiedadApi } from '../api/propiedadApi';
 import { PropiedadPaginatedResponse, PropiedadSimple, Result } from '../interfaces/propiedadInterfaces';
@@ -24,7 +23,6 @@ export const usePropiedadPaginated = () => {
             const urlPart=url.split('/');
             const id = urlPart[urlPart.length -2]
             const picture=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-
 
             return{
                 id,picture,name

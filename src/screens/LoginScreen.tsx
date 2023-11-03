@@ -46,7 +46,6 @@ export const LoginScreen = ({ navigation }: Props) => {
           <TextInput
             style={{
               ...styles.input,
-              /*       top:-220 */
             }}
             onChangeText={(value) => onChange(value, 'email')}
             placeholder='Email'
