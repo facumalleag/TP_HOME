@@ -1,20 +1,63 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Switch, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, RefreshControl, TouchableOpacity, Alert, ScrollView, Image} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Chip } from 'react-native-paper';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import {  TextInput } from 'react-native-gesture-handler';
 import { CheckComodidades } from './CheckComodidades';
 import { CustomSwitchMoneda } from './CustomSwitchMoneda';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { CustomChipOptions } from './CustomChipOptions';
+
 
 export const FormAgregarPropiedad = () => {
 
-  const [text, onChangeText] = React.useState('');
+  const [tempUri,setTempUri]=useState<string>()
+
+//Sacar foto
+  const takeFoto=()=>{
+    launchCamera({
+      mediaType:'photo',
+      quality:0.5
+    }, (resp)=>{
+      if (resp.didCancel) return;
+      if(!resp.assets![0].uri) return;
+
+      setTempUri(resp.assets![0].uri)
+      console.log(resp)
+    });
+  }
+
+
+//Formulario
+  const [form, setForm] = useState({
+    tipoOperacion:'',
+    direccion:'',
+    numero:'',
+    piso:'',
+    localidad:'',
+    barrio:'',
+    provincia:'',
+    pais:'',
+    antiguedad:'',
+    fotos:[],
+    descripcion:'',
+    precio:'',
+    expensas:'',
+  });
+  const onChangeTextInput = (value: string, field: string) => {
+    setForm({
+      ...form,
+      [field]: value
+    })
+
+  }
+
+
+//Switches Pesos y USD
   const [state, setState] = useState({
     isPesos: false,
     isUSD: false,
-    isEUR: false
   });
-
   const onChange = (value: boolean, field: keyof typeof state) => {
     setState({
       ...state,
@@ -23,12 +66,44 @@ export const FormAgregarPropiedad = () => {
   }
 
 
+
+//Pull to Refresh 
+  const [data, setData]=useState<string>()
+  const [refreshing, setrefreshing] = useState(false);
+  const onRefresh=()=>{
+    setrefreshing(true)
+    setTimeout(() => {
+      console.log('Refresed')
+      setrefreshing(false)
+      setData('Hola Mundo')
+      
+    }, 2000);
+
+  }
+
+ 
+
+
   return (
 
-    <ScrollView style={{ ...StyleSheet.absoluteFillObject, }}
+    <ScrollView
       keyboardDismissMode='on-drag'
       showsHorizontalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          progressViewOffset={150}
+          progressBackgroundColor="#099A97"
+          colors={['white','#1F4068']}
+        />
+      }
     >
+             {/*    <View>
+            {
+              data && <Text>La data Existe!!!!</Text>
+            }
+          </View> */}
       <Animatable.View animation="fadeInDownBig" >
 
         <View style={{
@@ -55,9 +130,7 @@ export const FormAgregarPropiedad = () => {
               },
               ,
             ]}
-            onPress={() => {
-              Alert.alert('Left button pressed')
-            }}>
+            onPress={() => onChangeTextInput('venta', 'tipoOperacion')}>
             <Text style={{ color: '#6A6A77', textAlign: 'center', }}>
               Ventas
             </Text>
@@ -77,13 +150,12 @@ export const FormAgregarPropiedad = () => {
               borderStyle: 'solid',
               backgroundColor: '#099A97',
             }}
-            onPress={() => Alert.alert('Right button pressed')}
-
-          >
+            onPress={() => onChangeTextInput('alquiler', 'tipoOperacion')}>
             <Text style={{ color: 'white', textAlign: 'center', }}>
               Alquiler
             </Text>
           </TouchableOpacity>
+
         </View>
 
         <View style={{
@@ -92,8 +164,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInput}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'direccion')}
             autoCorrect={false}
             placeholder="Direccion"
           ></TextInput>
@@ -105,8 +176,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'numero')}
             placeholder="Numero"
             keyboardType='number-pad'
             autoCorrect={false}
@@ -121,8 +191,7 @@ export const FormAgregarPropiedad = () => {
           }}>
             <TextInput
               style={styles.textInputRow}
-              onChangeText={onChangeText}
-              value={text}
+              onChangeText={(value) => onChangeTextInput(value, 'piso')}
               placeholder="Piso"
               keyboardType='number-pad'
             ></TextInput>
@@ -137,8 +206,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'localidad')}
             placeholder="Localidad"
           ></TextInput>
         </View>
@@ -149,8 +217,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'barrio')}
             placeholder="Barrio"
           ></TextInput>
         </View>
@@ -161,8 +228,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'provincia')}
             placeholder="Provincia"
           ></TextInput>
         </View>
@@ -172,8 +238,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'pais')}
             placeholder="Pais">
           </TextInput>
 
@@ -189,36 +254,13 @@ export const FormAgregarPropiedad = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Casa</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Departamento</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >PH</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Local</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Oficina</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Galpón</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Terreno</Chip>
+          <CustomChipOptions title='Casa'/>
+          <CustomChipOptions title='Departamento'/>
+          <CustomChipOptions title='PH'/>
+          <CustomChipOptions title='Local'/>
+          <CustomChipOptions title='Oficina'/>
+          <CustomChipOptions title='Galpón'/>
+          <CustomChipOptions title='Terreno'/>
         </ScrollView>
 
         <View style={{
@@ -228,8 +270,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <TextInput
             style={styles.textInputRow}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'antiguedad')}
             placeholder="Antiguedad"
           ></TextInput>
         </View>
@@ -237,27 +278,17 @@ export const FormAgregarPropiedad = () => {
         <View style={styles.containerTitulo}>
           <Text
             style={styles.titulo}
-          >Superficies</Text>
+          >Superficie (m²)</Text>
         </View>
 
         <View style={{
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Cubierta</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Semicubierta</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Descubierta</Chip>
+           <CustomChipOptions title='Cubierta'/>
+           <CustomChipOptions title='Semicubierta'/>
+           <CustomChipOptions title='Descubierta'/>
+          
         </View>
 
         <View style={styles.containerTitulo}>
@@ -271,28 +302,11 @@ export const FormAgregarPropiedad = () => {
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >1</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >2</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >3</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >4</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >5+</Chip>
+          <CustomChipOptions title='1'/>
+          <CustomChipOptions title='2'/>
+          <CustomChipOptions title='3'/>
+          <CustomChipOptions title='4'/>
+          <CustomChipOptions title='5+'/>
         </View>
 
         <View style={styles.containerTitulo}>
@@ -306,28 +320,11 @@ export const FormAgregarPropiedad = () => {
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >1</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >2</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >3</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >4</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >5+</Chip>
+          <CustomChipOptions title='1'/>
+          <CustomChipOptions title='2'/>
+          <CustomChipOptions title='3'/>
+          <CustomChipOptions title='4'/>
+          <CustomChipOptions title='5+'/>
         </View>
 
         <View style={styles.containerTitulo}>
@@ -341,20 +338,9 @@ export const FormAgregarPropiedad = () => {
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >1</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >2</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >3+</Chip>
+          <CustomChipOptions title='1'/>
+          <CustomChipOptions title='2'/>
+          <CustomChipOptions title='3+'/>
         </View>
 
         <View style={styles.containerTitulo}>
@@ -368,27 +354,56 @@ export const FormAgregarPropiedad = () => {
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >0</Chip>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >1</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >2</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >3+</Chip>
+           <CustomChipOptions title='0'/>
+          <CustomChipOptions title='1'/>
+          <CustomChipOptions title='2'/>
+          <CustomChipOptions title='3+'/>
         </View>
+
+        <View style={styles.containerTitulo}>
+          <Text
+            style={{
+              ...styles.titulo,
+            }}
+          >Fotografias</Text>
+        </View>
+        <View style={{
+          flexDirection: 'row',
+          marginTop: 5,
+        }}>
+          <ScrollView
+            style={styles.containerTitulo}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            <Chip
+              selectedColor='#6A6A77'
+              style={{
+                borderRadius: 25,
+                marginHorizontal: 5,
+                backgroundColor: '#FFFFFF',
+                borderColor: '#099A97',
+                borderWidth: 2
+              }}
+              onPress={takeFoto}
+            >Seleccionar Fotos</Chip>
+          </ScrollView>
+        </View>
+        {
+                (tempUri) && (
+                  <Image
+                    source={{ uri: tempUri }}
+                    style={{
+                      width: '80%',
+                      height: 200,
+                      marginTop: 10,
+                      marginLeft:10
+                    }}
+                    onLoadEnd={() => onChangeTextInput(tempUri, 'fotografias')}
+                  />
+                )
+              }
+
 
         <View style={styles.containerTitulo}>
           <Text
@@ -414,60 +429,22 @@ export const FormAgregarPropiedad = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >N</Chip>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >NO</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >O</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >NE</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >E</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >SE</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >S</Chip>
-          <Chip
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >SO</Chip>
+           <CustomChipOptions title='N'/>
+           <CustomChipOptions title='NO'/>
+           <CustomChipOptions title='O'/>
+           <CustomChipOptions title='NE'/>
+           <CustomChipOptions title='E'/>
+           <CustomChipOptions title='SE'/>
+           <CustomChipOptions title='S'/>
+           <CustomChipOptions title='SO'/>
         </ScrollView>
 
         <View style={{
           flexDirection: 'row',
           marginTop: 10,
         }}>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >Frente</Chip>
-          <Chip
-            selectedColor='#6A6A77'
-            // #099A97
-            style={styles.chip}
-            onPress={() => console.log('Pressed')}
-          >ContraFrente</Chip>
+          <CustomChipOptions title='Frente'/>
+           <CustomChipOptions title='ContraFrente'/>
         </View>
 
         <View style={styles.containerTitulo}>
@@ -481,14 +458,12 @@ export const FormAgregarPropiedad = () => {
           ...styles.containerRow,
           width: 370,
           height: 370,
-          marginLeft: 20,
+          marginLeft: 10,
         }}>
           <TextInput
             maxLength={500}
-
             style={styles.textInputDesc}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={(value) => onChangeTextInput(value, 'descripcion')}
           ></TextInput>
         </View>
 
@@ -511,8 +486,7 @@ export const FormAgregarPropiedad = () => {
           }}>
             <TextInput
               style={styles.textInputRow}
-              onChangeText={onChangeText}
-              value={text}
+              onChangeText={(value) => onChangeTextInput(value, 'precio')}
               placeholder="Precio"
               keyboardType='number-pad'
             ></TextInput>
@@ -543,8 +517,7 @@ export const FormAgregarPropiedad = () => {
           }}>
             <TextInput
               style={styles.textInputRow}
-              onChangeText={onChangeText}
-              value={text}
+              onChangeText={(value) => onChangeTextInput(value, 'expensas')}
               placeholder="Expensas"
               keyboardType='number-pad'
             ></TextInput>
@@ -564,7 +537,7 @@ export const FormAgregarPropiedad = () => {
             backgroundColor: '#099A97',
             alignSelf:'center',
             marginTop:40,
-            marginBottom:30
+            marginBottom:30,
           },
           ,
         ]}
@@ -577,11 +550,12 @@ export const FormAgregarPropiedad = () => {
       </TouchableOpacity>
 
 
-        {/*         <Text style={{ fontSize: 25 }}>
-            {JSON.stringify(state,null,5)} 
-        </Text> */}
+               <Text style={{ fontSize: 25 }}>
+            {JSON.stringify(form,null,5)} 
+        </Text> 
       </Animatable.View>
     </ScrollView>
+
   )
 }
 

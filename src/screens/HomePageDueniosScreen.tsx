@@ -9,19 +9,6 @@ import { FormAgregarPropiedad } from '../components/FormAgregarPropiedad';
 const Tab = createBottomTabNavigator();
 
 export const HomePageDueniosScreen = () => {
-
-  const [form, setForm] = useState({
-    email: '',
-  });
-
-  const onChange = (value: string, field: string) => {
-    setForm({
-      ...form,
-      [field]: value
-    })
-
-  }
-
   return (
 
     <Tab.Navigator
