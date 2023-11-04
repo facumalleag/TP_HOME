@@ -22,7 +22,6 @@ export const PropCard = ({ propiedad }: Props) => {
             activeOpacity={0.9}
             onPress={() => navigation.navigate('PropiedadDetails',{
                 PropiedadSimple:propiedad
-            
             }
             )}
         >

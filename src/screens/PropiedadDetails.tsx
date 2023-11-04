@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { RootStackParams } from '../navigator/StackNavigator'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet } from 'react-native'
@@ -27,33 +27,15 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
             style={{
                 flex: 1
             }}>
-            <TouchableOpacity
-                    onPress={navigation.goBack}
-                    activeOpacity={0.8}
-                    style={{
-                        ...styles.backButton,
-                        top: top + 5
-                    }}
-                >
-                    <Icon
-                        name='arrow-back-outline'
-                        color="black"
-                        size={30}
-                    />
-                </TouchableOpacity>
-            <View style={{
-                flex: 1
-            }}>
+            <FadeInImage
+                //source={{uri: item.picture}}
+                uri={picture}
+                style={styles.headerContainer}
+            />
 
-                <FadeInImage
-                    //source={{uri: item.picture}}
-                    uri={picture}
-                    style={{
-                        ...styles.headerContainer
-                    }}
-                />
 
-                {/*  <Image
+
+            {/*  <Image
                     source={require('../images/depto.png')}
                     style={{
                         height: 400,
@@ -64,13 +46,15 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
                     }}
                 />  */}
 
-                {/* <Text
+            {/* <Text
                     style={{
                         ...styles.propname,
                         borderColor: 'black'
 
                     }}>{picture}</Text> */}
-            </View>
+
+
+
             {/* ///Detalles y loading    {name + '\n'}#*/}
 
             {isLoading ?
@@ -83,9 +67,27 @@ export const PropiedadDetails = ({ navigation, route }: Props) => {
                 </View>
                 :
                 <PropiedadBottomDetail propiedad={propiedad} />
-                
             }
-            
+
+
+            <View style={{
+                ...styles.backButton,
+                top: top + 5
+            }}>
+                <TouchableOpacity
+                    onPress={() => navigation.pop()}
+                    activeOpacity={0.8}
+
+                >
+                    <Icon
+                        name='arrow-back-outline'
+                        color="black"
+                        size={35}
+                    />
+                </TouchableOpacity>
+            </View>
+
+
         </View>
     )
 }
@@ -106,7 +108,6 @@ const styles = StyleSheet.create({
         left: 20,
     },
     loadingStyle: {
-        flex: 1,
         height: 200,
         justifyContent: 'center',
     }

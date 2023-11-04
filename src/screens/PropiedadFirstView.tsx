@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, FlatList, Text, ActivityIndicator, View } from 'react-native'
+import { FlatList, ActivityIndicator, View } from 'react-native'
 import { usePropiedadPaginated } from '../hooks/usePropiedadPaginated'
 import { FadeInImage } from '../components/FadeInImage';
 import { PropCard } from '../components/PropCard';

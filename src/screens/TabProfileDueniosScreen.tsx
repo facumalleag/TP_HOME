@@ -137,6 +137,21 @@ export const TabProfileDueniosScreen = ({ navigation }: Props) => {
           <Text style={styles.textDatos}>Telefono de Contacto</Text>
         </View>
 
+        <View style={styles.dataProfile}>
+          <Icon name='key-outline'
+            size={25}
+            color='#1F4C6B'
+            style={{
+              bottom: -20,
+              left: 10,
+              position: 'relative'
+            }
+            }
+          />
+
+          <Text style={styles.textDatos}>Contraseña</Text>
+        </View>
+
         <TouchableOpacity style={{
           alignSelf: 'center',
           margin: 30,
@@ -158,7 +173,8 @@ export const TabProfileDueniosScreen = ({ navigation }: Props) => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginBottom:15
           }
           }>
           <TouchableOpacity 
@@ -291,7 +307,7 @@ const styles = StyleSheet.create({
     color: '#FF6584',
     textAlign: 'center',
     fontSize: 15,
-    padding: 5
+    padding: 5,
   },
 
 });

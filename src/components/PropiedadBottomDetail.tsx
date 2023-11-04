@@ -12,14 +12,12 @@ interface Props {
 
 export const PropiedadBottomDetail = ({ propiedad }: Props) => {
     return (
-        <ScrollView
+
+       <ScrollView
         showsVerticalScrollIndicator={false}
             style={{
                 ...StyleSheet.absoluteFillObject,
             }}>
-                
-
-            {/* Types */}
             <View
                 style={{
                     ...stylesDet.container,
@@ -192,7 +190,7 @@ export const PropiedadBottomDetail = ({ propiedad }: Props) => {
 </View>
             </View>
 
-        </ScrollView>
+      </ScrollView> 
     )
 }
 

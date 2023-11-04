@@ -13,11 +13,31 @@ const  pickComodidad=(selectedComodidad:any)=>{
         return;
     }
     setComodidad(comodidad=>comodidad.concat(selectedComodidad))
+    onChange('comodidades',selectedComodidad)
 }
 
+const [form, setForm] = useState({
+    comodidades: ['']
+  });
+
+
+
+ const onChange = ( field: string,value: string) => {
+
+    setForm({
+      ...form,
+      [field]:value
+    }) 
+
+  } 
+ /*  onChangeText={(value) => onChange(value, 'comodidades')} */
 
   return (
     <View style={styles.options}>
+              <Text>{
+              JSON.stringify(form, null, 3)
+            }
+            </Text>
       {
         options.map(option => 
             <View key={option} style={styles.comodidad}>
@@ -27,10 +47,10 @@ const  pickComodidad=(selectedComodidad:any)=>{
                     {comodidad.includes(option) &&<Text style={styles.check}>X</Text>}
                 </TouchableOpacity>
                 <Text style={styles.comodidadName}>{option}</Text>
-
             </View>
         )
       }
+
     </View>
 
   )
@@ -54,7 +74,7 @@ const styles = StyleSheet.create({
     },
     check:{
         alignSelf:'center',
-        color:'#1F4068'
+        color:'#1F4068',
     },
     comodidadName:{
         textTransform:'capitalize',
