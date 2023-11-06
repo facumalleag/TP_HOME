@@ -4,6 +4,14 @@ import { StackNaviagtor } from './src/navigator/StackNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/context/AuthContext';
 
+const AppState = ({ children }: any) => {
+  return (
+    <AuthProvider>
+        {children}
+    </AuthProvider>
+  )
+}
+
 const App = () => {
 
   useEffect(() => {
@@ -13,18 +21,12 @@ const App = () => {
   return (
     <NavigationContainer>
       <AppState>
-          <StackNaviagtor />
+        <StackNaviagtor />
       </AppState>
     </NavigationContainer>
   );
 }
 
-const AppState = ({ children }: any) => {
-  return (
-    <AuthProvider>
-      {children}
-    </AuthProvider>
-  )
-}
+
 
 export default App

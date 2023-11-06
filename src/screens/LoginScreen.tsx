@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { styles } from '../theme/appTheme';
 import { Text } from 'react-native-paper';
 import {  TextInput, View } from 'react-native';
@@ -15,16 +15,21 @@ export const LoginScreen = ({ navigation }: Props) => {
     password: '',
   });
 
+  const [isEmpty,setIsEmpty] = useState(false)
+
   const onChange = (value: string, field: string) => {
+    if(value==''|| value.length==0){
+      setIsEmpty(true)
+    }
     setForm({
       ...form,
       [field]: value
     })
-
   } 
 
+  const password:any = useRef();
+
   return (
- 
         <View style={styles.root}>
           <Image source={require('../images/logo.png')} style={{ width: 150, height: 100, alignSelf: 'center' }} />
           <Text style={{
@@ -33,15 +38,16 @@ export const LoginScreen = ({ navigation }: Props) => {
           }}>
             MyHome
           </Text>
-
           <Text style={{
             color: '#1F4C6B',
             fontSize: 30,
             fontWeight: 'bold',
+            
           }}>
-            Logueate Acá
+            Ingresá Acá
           </Text>
           <TextInput
+          
             style={{
               ...styles.input,
             }}
@@ -50,7 +56,23 @@ export const LoginScreen = ({ navigation }: Props) => {
             autoCorrect={false}
             keyboardType='email-address'
             autoCapitalize='none'
+            onFocus={()=>setIsEmpty(!isEmpty)
+            }
+            returnKeyType = {"next"}
+            onSubmitEditing={() => {
+              password.current.focus();
+            }}
           />
+      {isEmpty?
+        (<Text style={{
+          fontSize: 15,
+          color: 'red',
+          marginLeft:10,
+          fontWeight:'bold'
+        }}>Campo obligatorio</Text>)
+        :
+        null
+      }  
           <TextInput
             style={{
               ...styles.input,
@@ -58,9 +80,22 @@ export const LoginScreen = ({ navigation }: Props) => {
             onChangeText={(value) => onChange(value, 'password')}
             placeholder="Contraseña"
             autoCorrect={false}
+            returnKeyType = {"done"}
+            onFocus={()=>setIsEmpty(!isEmpty)
+            }
             secureTextEntry={true}
-
+            ref={password}
           />
+{isEmpty?
+        (<Text style={{
+          fontSize: 15,
+          color: 'red',
+          marginLeft:10,
+          fontWeight:'bold'
+        }}>Campo obligatorio</Text>)
+        :
+        null
+      }  
           <View style={styles.root}>
           <TouchableOpacity
             onPress={() => { navigation.navigate('RecuperoPwdScreen') }}>
@@ -72,7 +107,6 @@ export const LoginScreen = ({ navigation }: Props) => {
                 alignSelf: 'center',
                 padding:10
               }}
-
             >
               ¿Olvidaste tu contraseña?
             </Text>
@@ -80,7 +114,8 @@ export const LoginScreen = ({ navigation }: Props) => {
 
            
           <TouchableOpacity
-            onPress={() => { navigation.navigate('HomePageDueniosScreen') }}>
+            onPress={() => {
+              navigation.navigate('HomePageDueniosScreen')}}>
             <Text
               style={{
                 ...styles.loginbtn,

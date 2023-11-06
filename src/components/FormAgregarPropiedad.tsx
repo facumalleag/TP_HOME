@@ -30,6 +30,19 @@ export const FormAgregarPropiedad = () => {
     });
   }
 
+  const takeFotoFromGallery=()=>{
+    launchImageLibrary({
+      mediaType:'photo',
+      quality:0.5
+    }, (resp)=>{
+      if (resp.didCancel) return;
+      if(!resp.assets![0].uri) return;
+
+      setTempUri(resp.assets![0].uri)
+      console.log(resp)
+    });
+  }
+
 
 //Formulario
   const [form, setForm] = useState({
@@ -119,7 +132,8 @@ export const FormAgregarPropiedad = () => {
 
         }}>
           <TouchableOpacity
-            style={[
+            style={
+
               {
                 width: 205,
                 height: 40,
@@ -132,11 +146,11 @@ export const FormAgregarPropiedad = () => {
                 padding: 10,
                 borderColor: '#099A97',
                 borderStyle: 'solid',
-              },
-              ,
-            ]}
+              }
+            }
             onPress={() => onChangeTextInput('venta', 'tipoOperacion')}>
-            <Text style={{ color: '#6A6A77', textAlign: 'center', }}>
+            <Text style={{ color: '#6A6A77', textAlign: 'center'
+          }}>
               Ventas
             </Text>
           </TouchableOpacity>
@@ -391,7 +405,18 @@ export const FormAgregarPropiedad = () => {
                 borderWidth: 2
               }}
               onPress={takeFoto}
-            >Seleccionar Fotos</Chip>
+            >Cámara</Chip>
+            <Chip
+              selectedColor='#6A6A77'
+              style={{
+                borderRadius: 25,
+                marginHorizontal: 5,
+                backgroundColor: '#FFFFFF',
+                borderColor: '#099A97',
+                borderWidth: 2
+              }}
+              onPress={takeFotoFromGallery}
+            >Galería</Chip>
           </ScrollView>
         </View>
         {

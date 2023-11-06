@@ -21,6 +21,36 @@ export interface PropiedadSimple {
     //color:string,
 }
 
+export interface Propiedad {
+    ownerId:string,
+    tipoOperacion:string,
+    direccion:string,
+    numero:string,
+    piso:string,
+    localidad:string,
+    barrio:string,
+    provincia:string,
+    pais:string,
+    antiguedad:string,
+    tipoDePropiedad:string,
+    superficieCubierta:string,
+    superficieSemicubierta:string,
+    superficieDescubierta:string,
+    cantidadAmbientes:string,
+    cantidadDormitorios:string,
+    cantidadBanios:string,
+    cantidadCocheras:string,
+    fotos:string,
+    comodidades:string,
+    orientacion:string,
+    sentido:string,
+    descripcion:string,
+    precio:string,
+    moneda:string,
+    expensas:string,
+    estado:string,
+}
+
 export interface PropiedadFullDesc {
     abilities: Ability[];
     base_experience: number;
