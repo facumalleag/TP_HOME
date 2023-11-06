@@ -6,15 +6,11 @@ import { Text } from 'react-native-paper';
 import { View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Image } from 'react-native';
-import useState from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-
-
-const imagen_logo = 'https://s3-alpha-sig.figma.com/img/56a7/88d7/dc8cddbcd3f59dd1009c5ca4be9c6e26?Expires=1698624000&Signature=idOu0jGqZSLuV6jlftjkc-QzRh39W7~RfF5g9xBKZiw3r4Jeo0EtD~G0VajA0wb3b7HKpjChnocNeptkKVBPIagTDYhn9zFd0mZelSIlPN7GmFS9vKXsH0D5pyRcZVONCYuUKwVijJr~IRZrvXyWFQJpQqkgS5s7suuqVc5KzVctf~-bIS~mYs3UKBx4WJFbDy~-DdbG9tFYy0yErCp4nXTI1gdxyTBMZuOt~eJuVydaWv1czgzzwaIWzigirDOy0XVfN-BaAApQ2uxfl0EnqLfR1IK2V~qn8g-pNTT3i7dZghPceYxe6hoA3Bn3-Accq-PyEXMi6E6EklHgnRDTnw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 
 interface Props extends StackScreenProps<any, any> { }
 
@@ -70,7 +66,7 @@ export const LoginGeneralScreen = ({ navigation }: Props) => {
   return (
 
     <View style={styles.root}>
-      <Image source={{ uri: imagen_logo }} style={{ width: 320, height: 230, alignSelf: 'center' }} />
+      <Image source={require('../images/logo.png')} style={{ width: 320, height: 230, alignSelf: 'center' }} />
       <Text style={
         {
           color: '#B4CC1E',

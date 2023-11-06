@@ -1,11 +1,12 @@
-import React from 'react'
 import { AuthState } from './AuthContext'
+
 
 type AuthAction =
     | { type: 'signIn' }
     | { type: 'changeFavIcon', payload: string }
     | { type: 'logOut' }
     | { type: 'changeUsername', payload: string }
+    | { type: 'comodidades', payload: string }
 
 export const generaEstado = (state: AuthState, action: AuthAction): AuthState => {
 
@@ -38,10 +39,28 @@ export const generaEstado = (state: AuthState, action: AuthAction): AuthState =>
                 username: action.payload,
             }
             break;
-
         default:
             return state;
 
     }
 
+
+
 }
+/* 
+export const generaEstadoComodidades = (state: comodidades, action: AuthAction): AuthState => {
+
+
+    switch (action.type) {
+        
+        case 'comodidades':
+            return {
+                ...state,
+               
+            }
+            break;
+        default:
+            return state;
+
+    }
+} */

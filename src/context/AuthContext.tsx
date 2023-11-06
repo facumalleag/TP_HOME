@@ -5,15 +5,22 @@ import { generaEstado } from "./authReducer"
 
 export interface AuthState{
     isLoggedIn:boolean,
+    token:string,
+    idUser:string,
     username?:string,
     favoriteIcon?:string
+    comodidades:string
 }
+
 
 // Estado inicial
 export const authSInitialState:AuthState={
     isLoggedIn:false,
     username:undefined,
-    favoriteIcon:undefined
+    favoriteIcon:undefined,
+    comodidades:'',
+    token:'',
+    idUser:'',
 }
 
 

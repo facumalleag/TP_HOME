@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, View, Text, RefreshControl, TouchableOpacity, Alert, ScrollView, Image} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Chip } from 'react-native-paper';
@@ -7,10 +7,13 @@ import { CheckComodidades } from './CheckComodidades';
 import { CustomSwitchMoneda } from './CustomSwitchMoneda';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { CustomChipOptions } from './CustomChipOptions';
+import { AuthContext } from '../context/AuthContext';
 
+//const {authState} = useContext(AuthContext)
 
 export const FormAgregarPropiedad = () => {
 
+ 
   const [tempUri,setTempUri]=useState<string>()
 
 //Sacar foto
@@ -30,6 +33,7 @@ export const FormAgregarPropiedad = () => {
 
 //Formulario
   const [form, setForm] = useState({
+    ownerId:'',
     tipoOperacion:'',
     direccion:'',
     numero:'',
@@ -37,9 +41,10 @@ export const FormAgregarPropiedad = () => {
     localidad:'',
     barrio:'',
     provincia:'',
-    pais:'',
+    pais:'',  
     antiguedad:'',
     fotos:[],
+    comodidades:'',
     descripcion:'',
     precio:'',
     expensas:'',
@@ -402,9 +407,7 @@ export const FormAgregarPropiedad = () => {
                     onLoadEnd={() => onChangeTextInput(tempUri, 'fotografias')}
                   />
                 )
-              }
-
-
+                }
         <View style={styles.containerTitulo}>
           <Text
             style={{
@@ -438,6 +441,14 @@ export const FormAgregarPropiedad = () => {
            <CustomChipOptions title='S'/>
            <CustomChipOptions title='SO'/>
         </ScrollView>
+
+        <View style={styles.containerTitulo}>
+          <Text
+            style={{
+              ...styles.titulo,
+            }}
+          >Sentido</Text>
+        </View>
 
         <View style={{
           flexDirection: 'row',
@@ -500,15 +511,15 @@ export const FormAgregarPropiedad = () => {
           marginTop: 5,
           alignItems: 'center'
         }}>
-          <Text style={{ fontSize: 25 }}>U$D</Text>
+          {/* <Text style={{ fontSize: 25 }}>U$D</Text>
           <CustomSwitchMoneda isPesos={false}
             onChange={(value) => onChange(value, 'isPesos')}
           />
-          <Text style={{ fontSize: 25 }}>$</Text>
+          <Text style={{ fontSize: 25 }}>$</Text> */}
 
           <View style={{
             height: 40,
-            marginHorizontal: 50,
+            marginHorizontal: 160,
             marginTop: 10,
             backgroundColor: 'white',
             borderRadius: 25,
@@ -548,8 +559,6 @@ export const FormAgregarPropiedad = () => {
           Crear Propiedad
         </Text>
       </TouchableOpacity>
-
-
                <Text style={{ fontSize: 25 }}>
             {JSON.stringify(form,null,5)} 
         </Text> 
