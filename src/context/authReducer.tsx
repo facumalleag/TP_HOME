@@ -2,7 +2,7 @@ import { AuthState } from './AuthContext'
 
 
 type AuthAction =
-    | { type: 'signIn' }
+    | { type: 'signIn', payload: { token: string, ownerId: string, username: string } }
     | { type: 'changeFavIcon', payload: string }
     | { type: 'logOut' }
     | { type: 'changeUsername', payload: string }
@@ -13,11 +13,14 @@ export const generaEstado = (state: AuthState, action: AuthAction): AuthState =>
 
     switch (action.type) {
         case 'signIn':
+            const { token, ownerId, username } = action.payload;
             return {
                 ...state,
                 isLoggedIn: true,
-                username: 'no-username-yet'
-            }
+                token: action.payload.token,
+                ownerId: action.payload.ownerId,
+                username: action.payload.username,
+            }        
             break;
         case 'changeFavIcon':
             return {

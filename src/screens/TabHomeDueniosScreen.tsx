@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native';
 import { PropiedadFirstView } from './PropiedadFirstView';
 import { useImageLogo } from '../hooks/useImageLogo';
-
+import { AuthContext } from '../context/AuthContext'
 
 const logo=useImageLogo();
 
 export const TabHomeDueniosScreen = () => {
-  
+  const { authState } = useContext(AuthContext);
   return (
    
     <View>
@@ -21,7 +21,7 @@ export const TabHomeDueniosScreen = () => {
       padding:5,
       fontWeight: 'bold',
     }}>
-      Bienvenido Remax
+      Bienvenido {authState.username}
     </Text>
     <View style={{
       flexDirection: 'row',
