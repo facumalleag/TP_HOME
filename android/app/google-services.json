@@ -1,1 +1,29 @@
-{"installed":{"client_id":"887978335929-bniknd6bqf4bqsehbgr540d4rp5vrung.apps.googleusercontent.com","project_id":"advance-symbol-406415","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"}}
+{
+  "project_info": {
+    "project_number": "425830167483",
+    "project_id": "myhome-distribuidas",
+    "storage_bucket": "myhome-distribuidas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425830167483:android:b1b7138901b19662654a9e",
+        "android_client_info": {
+          "package_name": "com.myhomeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAog6AdGizbyv7lBlDCiEoLkt1UlAMz7is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

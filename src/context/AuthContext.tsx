@@ -78,12 +78,12 @@ export const authSInitialState:AuthState={
 
 //Lo usaremos para decirle a react como luce y que expone el context
 
-export interface AuthContextProps{
-    authState:AuthState,
-    signIn:()=>void,
-    changeFavortiteIcon:(iconName:string)=>void,
-    logOut:()=>void,
-    changeUsername:(iconName:string)=>void,
+export interface AuthContextProps {
+    authState: AuthState,
+    signIn: (data: { token: string, ownerId: string, username: string }) => void,
+    changeFavortiteIcon: (iconName: string) => void,
+    logOut: () => void,
+    changeUsername: (iconName: string) => void,
     propiedad: Propiedad[];
     loadPropiedad: () => Promise<void>
     addPropiedad: (categoryId: string, propName: string) => Promise<void>
@@ -111,9 +111,9 @@ export const AuthProvider = ({children}: any) =>{
 
     const [authState, dispatch] = useReducer(generaEstado, authSInitialState);
 
-    const signIn=()=>{
-        dispatch({type:'signIn'})
-    }
+    const signIn = (data: { token: string, ownerId: string, username: string }) => {
+        dispatch({ type: 'signIn', payload: data });
+    };
     
     const changeUsername=(nombre:string)=>{
         dispatch({type:'changeUsername',payload:nombre })

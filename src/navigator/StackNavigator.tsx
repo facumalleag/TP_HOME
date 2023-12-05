@@ -12,6 +12,7 @@ import { PropiedadDetails } from '../screens/PropiedadDetails';
 import { PropiedadSimple } from '../interfaces/propiedadInterfaces';
 import { ComentariosParaDuenios } from '../screens/ComentariosParaDuenios';
 
+
 export type RootStackParams = {
   /* LandingScreen: undefined, */
   LoginScreen: undefined,
@@ -23,6 +24,7 @@ export type RootStackParams = {
   RegisterModal: undefined,
   PropiedadDetails:PropiedadSimple,
   ComentariosParaDuenios:undefined,
+  Prueba:undefined,
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -51,6 +53,7 @@ export const  StackNaviagtor=() =>{
       <Stack.Screen name="ModalScreen" component={ModalScreen}/>
       <Stack.Screen name="PropiedadDetails" component={PropiedadDetails}/>
       <Stack.Screen name="ComentariosParaDuenios" component={ComentariosParaDuenios}/>
+
     </Stack.Navigator>
   );
 }

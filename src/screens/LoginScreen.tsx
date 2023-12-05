@@ -1,15 +1,16 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { styles } from '../theme/appTheme';
 import { Text } from 'react-native-paper';
 import {  TextInput, View, Alert } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Image } from 'react-native';
+import { AuthContext } from '../context/AuthContext';
 
 interface Props extends StackScreenProps<any, any> { }
 
 export const LoginScreen = ({ navigation }: Props) => {
-
+  const authContext = useContext(AuthContext);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -53,6 +54,11 @@ export const LoginScreen = ({ navigation }: Props) => {
       if (response.ok) {
         const data = await response.json();
         const jwtToken = data.jwt;
+        const ownerId = data.id_owner;
+        const username = data.username; // Ajusta esto según la estructura real de tu respuesta
+
+        // Llama a la acción signIn en el contexto para almacenar el token, ownerId y username
+        authContext.signIn({ token: jwtToken, ownerId, username });
         console.log(jwtToken)
 
         navigation.navigate('HomePageDueniosScreen');

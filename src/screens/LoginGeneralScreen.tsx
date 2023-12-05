@@ -11,6 +11,10 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { auth } from '../api/firebase';
+
+
+
 
 interface Props extends StackScreenProps<any, any> { }
 
@@ -37,7 +41,7 @@ const _signIn = async () => {
     }
   }
 }; */
-GoogleSignin.configure({
+/*GoogleSignin.configure({
   scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
   webClientId:
     '418977770929-g9ou7r9eva1u78a3anassxxxxxxx.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -65,6 +69,27 @@ export const LoginGeneralScreen = ({ navigation }: Props) => {
       } else {
         console.error('Error during Google Sign-In:', error);
       }
+    }
+  };
+*/
+export const LoginGeneralScreen = ({ navigation }: Props) => {
+  const handleGoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      // Obtener las credenciales de Google para Firebase
+      const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
+
+      const { user } = await auth.signInWithCredential(googleCredential);
+
+      // Aquí puedes acceder a la información del usuario a través de 'user'
+      console.log('User Info:', user);
+
+      // Luego, puedes redirigir al usuario a la siguiente pantalla o realizar otras acciones según tu lógica.
+    } catch (error: any) {
+      // Manejar errores
+      console.error('Error durante el inicio de sesión con Google:', error);
     }
   };
 
