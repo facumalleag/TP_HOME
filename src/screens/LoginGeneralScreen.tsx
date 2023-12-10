@@ -11,52 +11,25 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { auth } from '../api/firebase';
+import { configureGoogleSignIn } from '../api/googleSignInConfig';
 
 
 
 
 interface Props extends StackScreenProps<any, any> { }
 
-/* const [loggedIn, setloggedIn] = useState(false);
-const [userInfo, setuserInfo] = useState([]);
-
-const _signIn = async () => {
-  try {
-    await GoogleSignin.hasPlayServices();
-    const {accessToken, idToken} = await GoogleSignin.signIn();
-    setloggedIn(true);
-  } catch (error) {
-    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      // user cancelled the login flow
-      alert('Cancel');
-    } else if (error.code === statusCodes.IN_PROGRESS) {
-      alert('Signin in progress');
-      // operation (f.e. sign in) is in progress already
-    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      alert('PLAY_SERVICES_NOT_AVAILABLE');
-      // play services not available or outdated
-    } else {
-      // some other error happened
-    }
-  }
-}; */
-/*GoogleSignin.configure({
-  scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
-  webClientId:
-    '418977770929-g9ou7r9eva1u78a3anassxxxxxxx.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-  offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-});
-
+configureGoogleSignIn();
 export const LoginGeneralScreen = ({ navigation }: Props) => {
   const handleGoogleSignIn = async () => {
     try {
+      console.log('Before Google Sign-In');
       await GoogleSignin.hasPlayServices();
+      console.log('After Google Sign-In hasPlayServices');
       const userInfo = await GoogleSignin.signIn();
-
+      console.log('After Google Sign-In signIn');
       // Aquí puedes enviar la información del usuario al backend para la autenticación.
       console.log('User Info:', userInfo);
-      
+
       // Luego, puedes redirigir al usuario a la siguiente pantalla o realizar otras acciones según tu lógica.
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -71,49 +44,9 @@ export const LoginGeneralScreen = ({ navigation }: Props) => {
       }
     }
   };
-*/
-export const LoginGeneralScreen = ({ navigation }: Props) => {
-  const handleGoogleSignIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-
-      // Obtener las credenciales de Google para Firebase
-      const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
-
-      const { user } = await auth.signInWithCredential(googleCredential);
-
-      // Aquí puedes acceder a la información del usuario a través de 'user'
-      console.log('User Info:', user);
-
-      // Luego, puedes redirigir al usuario a la siguiente pantalla o realizar otras acciones según tu lógica.
-    } catch (error: any) {
-      // Manejar errores
-      console.error('Error durante el inicio de sesión con Google:', error);
-    }
-  };
 
 
-  /*   const signOut = async () => {
-      try {
-        await GoogleSignin.revokeAccess();
-        await GoogleSignin.signOut();
-        setloggedIn(false);
-        setuserInfo([]);
-      } catch (error) {
-        console.error(error);
-      }
-    }; */
 
-  /*   
-    useEffect(() => {
-      GoogleSignin.configure({
-        scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
-        webClientId:
-          '418977770929-g9ou7r9eva1u78a3anassxxxxxxx.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-        offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-      });
-    }, []); */
 
   return (
 

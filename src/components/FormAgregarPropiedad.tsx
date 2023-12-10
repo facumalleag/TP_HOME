@@ -11,8 +11,12 @@ import { AuthContext } from '../context/AuthContext';
 
 //const {authState} = useContext(AuthContext)
 
-export const FormAgregarPropiedad = () => {
+export const FormAgregarPropiedad = ({ propertyId }: { propertyId?: string }) => {
 
+  const handleSave = async () => {
+    console.log("Guardado")
+    console.log(form)
+  }
  
   const [tempUri,setTempUri]=useState<string>()
 
@@ -59,6 +63,7 @@ export const FormAgregarPropiedad = () => {
     fotos:[],
     comodidades:'',
     descripcion:'',
+    isPesos:false,
     precio:'',
     expensas:'',
   });
@@ -69,20 +74,23 @@ export const FormAgregarPropiedad = () => {
     })
 
   }
-
+  const [isPesos, setisPesos] =useState(false)
+  const onChange = async () => {
+      setisPesos(!isPesos)
+      console.log(isPesos)
+  }
 
 //Switches Pesos y USD
-  const [state, setState] = useState({
+  /*const [state, setState] = useState({
     isPesos: false,
     isUSD: false,
   });
   const onChange = (value: boolean, field: keyof typeof state) => {
     setState({
       ...state,
-      [field]: value
+      [field]: !value
     })
-  }
-
+  }*/
 
 
 //Pull to Refresh 
@@ -509,7 +517,7 @@ export const FormAgregarPropiedad = () => {
         }}>
           <Text style={{ fontSize: 25 }}>U$D</Text>
           <CustomSwitchMoneda isPesos={false}
-            onChange={(value) => onChange(value, 'isPesos')}
+            onChange={onChange}
           />
           <Text style={{ fontSize: 25 }}>$</Text>
 
@@ -577,11 +585,9 @@ export const FormAgregarPropiedad = () => {
           },
           ,
         ]}
-        onPress={() => {
-          Alert.alert('Propiedad Creada')
-        }}>
+        onPress={handleSave}>
         <Text style={{ color: 'white', textAlign: 'center', }}>
-          Crear Propiedad
+          {propertyId ? 'Actualizar Propiedad' : 'Crear Propiedad'}
         </Text>
       </TouchableOpacity>
                <Text style={{ fontSize: 25 }}>

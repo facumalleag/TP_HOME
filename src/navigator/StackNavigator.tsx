@@ -11,6 +11,8 @@ import { ModalScreen } from '../Modal/ModalScreen';
 import { PropiedadDetails } from '../screens/PropiedadDetails';
 import { PropiedadSimple } from '../interfaces/propiedadInterfaces';
 import { ComentariosParaDuenios } from '../screens/ComentariosParaDuenios';
+import  OwnerVisitScreen  from '../screens/OwnerVisitScreen';
+
 
 
 export type RootStackParams = {
@@ -24,6 +26,7 @@ export type RootStackParams = {
   RegisterModal: undefined,
   PropiedadDetails:PropiedadSimple,
   ComentariosParaDuenios:undefined,
+  OwnerVisitScreen:undefined,
   Prueba:undefined,
 }
 
@@ -53,6 +56,7 @@ export const  StackNaviagtor=() =>{
       <Stack.Screen name="ModalScreen" component={ModalScreen}/>
       <Stack.Screen name="PropiedadDetails" component={PropiedadDetails}/>
       <Stack.Screen name="ComentariosParaDuenios" component={ComentariosParaDuenios}/>
+      <Stack.Screen name="OwnerVisitScreen" component={OwnerVisitScreen}/>
 
     </Stack.Navigator>
   );

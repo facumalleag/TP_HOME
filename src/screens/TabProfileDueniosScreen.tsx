@@ -73,6 +73,17 @@ export const TabProfileDueniosScreen = ({ navigation }: Props) => {
           >Ver Comentarios</Text>
 
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.comments}
+          onPress={() => navigation.navigate('OwnerVisitScreen')}>
+          <Text
+            style={{
+              fontSize: 15,
+              alignSelf: 'center',
+            }}
+          >Agenda</Text>
+
+        </TouchableOpacity>
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}
